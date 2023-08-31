@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Product_screen.dart';
 import 'constants.dart';
 import 'data_provider/remote_data/dio_helper.dart';
 import 'models/product.dart';
@@ -17,6 +18,7 @@ class HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     getData();
+    print(products);
   }
   
   Future<void> getData() async {
@@ -26,7 +28,6 @@ class HomeScreenState extends State<HomeScreen> {
     products = Product.convertToProducts(productsList);
     setState(() {});
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold( 
@@ -58,42 +59,51 @@ class HomeScreenState extends State<HomeScreen> {
             )
           : ListView.builder(
               itemCount: products.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  clipBehavior: Clip.antiAlias,
-                  padding: const EdgeInsets.only(bottom: 8),
-                  margin: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Column(
-                    children: [
-                       Image.network(
-                        products[index].thumbnail,
-                        fit: BoxFit.fitWidth,
-                      ),
-                      Text(
-                        products[index].title,
-                        overflow: TextOverflow.ellipsis,
-                        //maxLines: 2,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.white),
-                      ),
-                      Text(
-                        products[index].description,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.blueGrey,
-                          fontWeight: FontWeight.normal,
+              itemBuilder: (context, index){
+           
+                return GestureDetector(
+                  onTap: (){
+                    Navigator.push(context,
+                     MaterialPageRoute(builder: (context)=> ProductScreen(item: products[index],)));
+                  },
+                  child: Container(
+                    clipBehavior: Clip.antiAlias,
+                    padding: const EdgeInsets.only(bottom: 8),
+                    margin: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Column(
+                      children: [
+                         Image.network(
+                          products[index].thumbnail,
+                          fit: BoxFit.fitWidth,
                         ),
-                      )
-                    ],
+                        Text(
+                          products[index].title,
+                          overflow: TextOverflow.ellipsis,
+                          //maxLines: 2,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.white),
+                        ),
+                        Text(
+                          products[index].description,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            color: Colors.blueGrey,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        )
+                        
+                      ],
+                    ),
                   ),
                 );
+            
               }),
             bottomNavigationBar: BottomNavigationBar( backgroundColor: Colors.grey,
     selectedItemColor: Colors.white, items: [
