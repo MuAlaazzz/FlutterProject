@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'package:flutter_application_1/Product_screen.dart';
-import 'package:flutter_application_1/home_screen.dart';
+//import 'dart:async';
 
 class Welcome extends StatefulWidget {
     const Welcome({super.key});
