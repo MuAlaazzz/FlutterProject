@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'Product_screen.dart';
 import 'constants.dart';
@@ -20,21 +21,22 @@ class HomeScreenState extends State<HomeScreen> {
     getData();
     print(products);
   }
-  
+
   Future<void> getData() async {
-    List productsList = await DioHelper().getProducts(
-        path: ApiConstants.baseUrl);
-        print(productsList);
+    List productsList =
+        await DioHelper().getProducts(path: ApiConstants.baseUrl);
+    print(productsList);
     products = Product.convertToProducts(productsList);
     setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold( 
+    return Scaffold(
       backgroundColor: Color.fromARGB(255, 5, 32, 54),
-       appBar: AppBar(
+      appBar: AppBar(
         title: const Row(
-          children:[
+          children: [
             Text(
               "E",
               style: TextStyle(color: Colors.white),
@@ -43,28 +45,31 @@ class HomeScreenState extends State<HomeScreen> {
               "Need",
               style: TextStyle(color: Colors.blueGrey),
             ),
-             SizedBox(width: 265),
-             Icon(Icons.search), 
-              SizedBox(width: 5),
-             Icon(Icons.shopping_cart),
+            SizedBox(width: 265),
+            Icon(Icons.search),
+            SizedBox(width: 5),
+            Icon(Icons.shopping_cart),
           ],
         ),
         backgroundColor: Colors.grey,
       ),
       body: products.length == 0
-          ? const Center( 
+          ? const Center(
               child: CircularProgressIndicator(
                 color: Colors.white,
               ),
             )
           : ListView.builder(
               itemCount: products.length,
-              itemBuilder: (context, index){
-           
+              itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: (){
-                    Navigator.push(context,
-                     MaterialPageRoute(builder: (context)=> ProductScreen(item: products[index],)));
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProductScreen(
+                                  item: products[index],
+                                )));
                   },
                   child: Container(
                     clipBehavior: Clip.antiAlias,
@@ -75,7 +80,7 @@ class HomeScreenState extends State<HomeScreen> {
                     ),
                     child: Column(
                       children: [
-                         Image.network(
+                        Image.network(
                           products[index].thumbnail,
                           fit: BoxFit.fitWidth,
                         ),
@@ -98,28 +103,28 @@ class HomeScreenState extends State<HomeScreen> {
                             fontWeight: FontWeight.normal,
                           ),
                         )
-                        
                       ],
                     ),
                   ),
                 );
-            
               }),
-            bottomNavigationBar: BottomNavigationBar( backgroundColor: Colors.grey,
-    selectedItemColor: Colors.white, items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.account_circle),
-          label: 'Account',
-        ),
-        BottomNavigationBarItem(
-         icon: Icon(Icons.favorite),
-          label: 'Favorites',
-        ),
-      ]),
+      bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: Colors.grey,
+          selectedItemColor: Colors.white,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle),
+              label: 'Account',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite),
+              label: 'Favorites',
+            ),
+          ]),
     );
   }
 }

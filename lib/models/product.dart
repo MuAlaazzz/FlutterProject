@@ -5,10 +5,9 @@
       final int price;
       final String brand;
       final String category;
-      final int id;
 
       Product(
-          {required this.thumbnail, required this.description, required this.title, required this.price, required this.brand, required this.category,required this.id});
+          {required this.thumbnail, required this.description, required this.title, required this.price, required this.brand, required this.category});
 
       static List<Product> convertToProducts(List products) {
         List<Product> productsList = [];
@@ -23,7 +22,7 @@
               title: product["title"],
               price: product["price"],
               brand: product["brand"],
-              category: product["category"],id: product["id"]));
+              category: product["category"]));
         }
         return productsList;
       }

@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
-import 'splash.dart';
+import 'home_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'models/Auth.dart';
+import 'models/account_screen.dart';
+import 'models/signin.dart';
+import 'models/signup_screen.dart';
 
-void main() {
+void main() async {
+  // to conect the firebase with the app
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -11,9 +19,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-       debugShowCheckedModeBanner: false,
-      home: Welcome(),
+      debugShowCheckedModeBanner: false,
+      home: Auth(),
     );
   }
 }
-
