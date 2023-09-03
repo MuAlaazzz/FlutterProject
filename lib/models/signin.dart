@@ -15,7 +15,7 @@ class _sign_in_ScreenState extends State<sign_in_Screen> {
   final _passwordcontroller = TextEditingController();
 
   //wrong Passward Message Method
-  WrongPasswordMessage() {
+  WrongPasswordMessage(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -27,7 +27,7 @@ class _sign_in_ScreenState extends State<sign_in_Screen> {
   }
 
   //wrong Email Message Method
-  WrongEmailMessage() {
+  WrongEmailMessage(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
@@ -39,7 +39,7 @@ class _sign_in_ScreenState extends State<sign_in_Screen> {
   }
 
   //sign in method
-  Future SignIn() async {
+  Future <dynamic> SignIn(BuildContext context) async {
     //show loading circle
     showDialog(
       context: context,
@@ -56,6 +56,7 @@ class _sign_in_ScreenState extends State<sign_in_Screen> {
         email: _emailcontroller.text.toString(),
         password: _passwordcontroller.text.toString(),
       );
+      print("Sign in");
       //pop the loading circle
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
@@ -64,10 +65,10 @@ class _sign_in_ScreenState extends State<sign_in_Screen> {
       if (e.code == 'network-request-failed') {
         return "Network error occurred. Please check your internet connection.";
       } else if (e.code == 'wrong-password') {
-        WrongPasswordMessage();
+        WrongPasswordMessage(context);
         //Wrong Email
       } else if (e.code == 'user-not-found') {
-        WrongEmailMessage();
+        WrongEmailMessage(context);
       } else {
         // Handle other FirebaseAuthException errors
         return "Sign in failed. Error: ${e.code}";
@@ -193,7 +194,7 @@ class _sign_in_ScreenState extends State<sign_in_Screen> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: GestureDetector(
-                    onTap: SignIn,
+                    onTap: (){SignIn(context);},
                     child: Container(
                       padding: EdgeInsets.all(14),
                       decoration: BoxDecoration(

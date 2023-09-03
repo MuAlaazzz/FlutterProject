@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/home_screen.dart';
 import 'package:flutter_application_1/models/account_screen.dart'; 
@@ -11,8 +13,8 @@ class MyNavigationBar extends StatefulWidget {
   
 class _MyNavigationBarState extends State<MyNavigationBar > {  
   int _selectedIndex = 0;  
-  static List<Widget> _widgetOptions = <Widget>[  
-  HomeScreen() , accountScreen() , FavoritePage(),
+  final List<Widget> _widgetOptions = <Widget>[  
+  const HomeScreen() , const accountScreen() , FavoritePage(),
   ];  
   
   void _onItemTapped(int index) {  

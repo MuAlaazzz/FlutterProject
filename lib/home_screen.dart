@@ -24,7 +24,7 @@ class HomeScreenState extends State<HomeScreen> {
     List productsList =
         await DioHelper().getProducts(path: ApiConstants.baseUrl);
     products = Product.convertToProducts(productsList);
-    if (this.mounted) {
+    if (mounted) {
   setState(() {
     // Your state change code goes here
   });
